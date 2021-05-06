@@ -2,7 +2,7 @@ import React from "react";
 import Info from "./components/Info";
 import Section from "./components/Section";
 
-function index(props) {
+function Pay() {
   return (
     <main className="paypage" id="main">
       <div className="container">
@@ -28,4 +28,4 @@ function index(props) {
   );
 }
 
-export default index;
+export default Pay;

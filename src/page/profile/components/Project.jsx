@@ -1,7 +1,7 @@
 import React from "react";
 import Tab3Item from "./Tab3Item";
 
-function Tab3(props) {
+function Project() {
   return (
     <div className="tab3">
       <div className="row">
@@ -29,4 +29,4 @@ function Tab3(props) {
   );
 }
 
-export default Tab3;
+export default Project;

@@ -1,7 +1,7 @@
 import React from "react";
 import Tab4Item from "./Tab4Item";
 
-function Tab4(props) {
+function History() {
   return (
     <div className="tab4">
       <Tab4Item
@@ -28,4 +28,4 @@ function Tab4(props) {
   );
 }
 
-export default Tab4;
+export default History;

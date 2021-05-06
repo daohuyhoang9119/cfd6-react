@@ -1,7 +1,7 @@
 import React from "react";
 import Tab2Item from "./Tab2Item";
 
-function Tab2(props) {
+function Course() {
   return (
     <div className="tab2">
       <Tab2Item
@@ -18,4 +18,4 @@ function Tab2(props) {
   );
 }
 
-export default Tab2;
+export default Course;

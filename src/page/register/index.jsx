@@ -2,7 +2,7 @@ import React from "react";
 import RegisterForm from "./components/RegisterForm";
 import RegisterInfo from "./components/RegisterInfo";
 
-function index(props) {
+function Register() {
   return (
     <main className="register-course" id="main">
       <section>
@@ -19,4 +19,4 @@ function index(props) {
   );
 }
 
-export default index;
+export default Register;

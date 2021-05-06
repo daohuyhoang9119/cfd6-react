@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-function HopTac(props) {
+function Coop() {
   // let [name, setName] = useState("");
   // let [phone, setPhone] = useState("");
   // let [email, setEmail] = useState("");
@@ -191,4 +191,4 @@ function HopTac(props) {
   );
 }
 
-export default HopTac;
+export default Coop;

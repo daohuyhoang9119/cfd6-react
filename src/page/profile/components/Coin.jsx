@@ -2,13 +2,13 @@ import React from "react";
 import CoinHistory from "./CoinHistory";
 import CoinInfo from "./CoinInfo";
 
-function Tab5(props) {
+function Coin() {
   return (
-    <div className="tab5 cointab" style={{ display: "block" }}>
+    <div className="tab5 cointab">
       <CoinInfo />
       <CoinHistory />
     </div>
   );
 }
 
-export default Tab5;
+export default Coin;

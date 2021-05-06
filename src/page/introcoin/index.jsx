@@ -1,6 +1,6 @@
 import React from "react";
 
-function index(props) {
+function IntroCoin() {
   return (
     <main className="paypage" id="main">
       <div className="container">
@@ -100,4 +100,4 @@ function index(props) {
   );
 }
 
-export default index;
+export default IntroCoin;

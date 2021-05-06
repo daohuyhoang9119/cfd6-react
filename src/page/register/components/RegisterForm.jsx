@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import RegisterLabel from "./RegisterLabel";
 
 function RegisterForm(props) {
   const [form, setForm] = useState({
@@ -7,18 +6,12 @@ function RegisterForm(props) {
     phone: "",
     email: "",
     url: "",
-    // coin: "",
+    coin: false,
+    pay: "",
     feedback: "",
   });
 
-  const [error, setError] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    url: "",
-    // coin: "",
-    feedback: "",
-  });
+  const [error, setError] = useState({});
 
   function onRegister() {
     let errorObj = {};
@@ -33,7 +26,7 @@ function RegisterForm(props) {
     }
     if (!form.email.trim()) {
       errorObj.email = "Email là bắt buộc";
-    } else if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
       errorObj.email = "Email không đúng định dạng";
     }
     if (!form.url.trim()) {
@@ -49,15 +42,20 @@ function RegisterForm(props) {
       errorObj.feedback = "Lời nhận xét là bắt buộc";
     }
     setError(errorObj);
-    if (Object.keys(errorObj) === 0) {
+
+    if (Object.keys(errorObj).length === 0) {
       console.log(form);
     }
   }
 
   function inputOnchange(e) {
-    const name = e.target.name;
-    const value = e.target.value;
+    let name = e.target.name;
+    let value = e.target.value;
 
+    if (e.target.type === "checkbox") {
+      value = e.target.checked;
+      name = "coin";
+    }
     setForm({
       ...form,
       [name]: value,
@@ -66,35 +64,59 @@ function RegisterForm(props) {
 
   return (
     <div className="form">
-      <RegisterLabel
-        title="Họ và tên"
-        placeholder="Họ và tên bạn"
-        value={form.name}
-        name="name"
-        onChange={inputOnchange}
-        // error={error}
-      />
-      <RegisterLabel
-        title="Số điện thoại"
-        placeholder="Số điện thoại"
-        value={form.phone}
-        name="phone"
-        onChange={inputOnchange}
-      />
-      <RegisterLabel
-        title="Email"
-        placeholder="Email của bạn"
-        value={form.email}
-        name="email"
-        onChange={inputOnchange}
-      />
-      <RegisterLabel
-        title="URL Facebook"
-        placeholder="https://facebook.com"
-        value={form.url}
-        name="url"
-        onChange={inputOnchange}
-      />
+      <label>
+        <p>
+          Họ và tên<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Họ và tên bạn"
+          value={form.name}
+          name="name"
+          onChange={inputOnchange}
+        />
+        {error.name && <p className="error-text">{error.name}</p>}
+      </label>
+      <label>
+        <p>
+          Số điện thoại<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Số điện thoại"
+          value={form.phone}
+          name="phone"
+          onChange={inputOnchange}
+        />
+        {error.phone && <p className="error-text">{error.phone}</p>}
+      </label>
+      <label>
+        <p>
+          Email<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Email của bạn"
+          value={form.email}
+          name="email"
+          onChange={inputOnchange}
+        />
+        {error.email && <p className="error-text">{error.email}</p>}
+      </label>
+      <label>
+        <p>
+          URL Facebook<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="https://facebook.com"
+          value={form.url}
+          name="url"
+          onChange={inputOnchange}
+        />
+        {error.url && <p className="error-text">{error.url}</p>}
+      </label>
+
       <label className="disable">
         <p>Sử dụng COIN</p>
         <div className="checkcontainer">
@@ -103,10 +125,8 @@ function RegisterForm(props) {
           {/* Cần ít nhất 200 COIN để giảm giá */}
           <input
             type="checkbox"
-            defaultChecked="checked"
-            // value={form.coin}
-            // name="coin"
-            // onChange={inputOnchange}
+            defaultChecked={form.coin}
+            onChange={inputOnchange}
           />
           <span className="checkmark" />
         </div>
@@ -116,18 +136,30 @@ function RegisterForm(props) {
         <div className="select">
           <div className="head">Chuyển khoản</div>
           <div className="sub">
-            <a href="#">Chuyển khoản</a>
-            <a href="#">Thanh toán tiền mặt</a>
+            <a href="#" value="CK">
+              Chuyển khoản
+            </a>
+
+            <a href="#" value="TM">
+              Thanh toán tiền mặt
+            </a>
           </div>
         </div>
       </label>
-      <RegisterLabel
-        title="Ý kiến cá nhân"
-        placeholder="Mong muốn cá nhân và lịch bạn có thể học."
-        value={form.feedback}
-        name="feedback"
-        onChange={inputOnchange}
-      />
+      <label>
+        <p>
+          Ý kiến cá nhân<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Mong muốn cá nhân và lịch bạn có thể học."
+          value={form.feedback}
+          name="feedback"
+          onChange={inputOnchange}
+        />
+        {error.feedback && <p className="error-text">{error.feedback}</p>}
+      </label>
+
       <div className="btn main rect" onClick={onRegister}>
         đăng ký
       </div>

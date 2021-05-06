@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Tab1Label from "./Tab1Label";
 
-function Tab1(props) {
+function Info() {
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -66,46 +65,71 @@ function Tab1(props) {
 
   return (
     <div className="tab1" /*style={{ display: "none" }}*/>
-      <Tab1Label
-        title="Họ và tên"
-        placeholder="Nguyễn Văn A"
-        value={form.name}
-        name="name"
-        onChange={inputOnchange}
-        error={error.name}
-      />
-      <Tab1Label
-        title="Số điện thoại"
-        placeholder="0949******"
-        value={form.phone}
-        name="phone"
-        onChange={inputOnchange}
-        error={error}
-      />
-      <Tab1Label
-        title="Facebook"
-        placeholder="Facebook url"
-        value={form.urlFace}
-        name="urlFace"
-        onChange={inputOnchange}
-        error={error}
-      />
-      <Tab1Label
-        title="Skype"
-        placeholder="Skype url"
-        value={form.urlSkype}
-        name="urlSkype"
-        onChange={inputOnchange}
-        error={error}
-      />
-      <Tab1Label
-        title="Email"
-        placeholder="Email"
-        value={form.email}
-        name="email"
-        onChange={inputOnchange}
-        error={error}
-      />
+      <label>
+        <p>
+          Họ và tên<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Nguyễn Văn A"
+          value={form.name}
+          name="name"
+          onChange={inputOnchange}
+        />
+        {error.name && <p className="error-text">{error.name}</p>}
+      </label>
+      <label>
+        <p>
+          Họ và tên<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Số điện thoại"
+          value={form.phone}
+          name="name"
+          onChange={inputOnchange}
+        />
+        {error.phone && <p className="error-text">{error.phone}</p>}
+      </label>
+      <label>
+        <p>
+          Facebook<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Facebook url"
+          value={form.name}
+          name="urlFace"
+          onChange={inputOnchange}
+        />
+        {error.urlFace && <p className="error-text">{error.urlFace}</p>}
+      </label>
+      <label>
+        <p>
+          Skype<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Skype url"
+          value={form.urlSkype}
+          name="urlSkype"
+          onChange={inputOnchange}
+        />
+        {error.urlSkype && <p className="error-text">{error.urlSkype}</p>}
+      </label>
+      <label>
+        <p>
+          Email<span>*</span>
+        </p>
+        <input
+          type="text"
+          placeholder="Email"
+          value={form.email}
+          name="email"
+          onChange={inputOnchange}
+        />
+        {error.email && <p className="error-text">{error.email}</p>}
+      </label>
 
       <div className="btn main rect" onClick={onSave}>
         LƯU LẠI
@@ -114,4 +138,4 @@ function Tab1(props) {
   );
 }
 
-export default Tab1;
+export default Info;
