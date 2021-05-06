@@ -3,7 +3,7 @@ import Tab4Item from "./Tab4Item";
 
 function Tab4(props) {
   return (
-    <div className="tab4" style={{ display: "none" }}>
+    <div className="tab4">
       <Tab4Item
         name="Khóa học CFD1-offline"
         date="09/09/2020"

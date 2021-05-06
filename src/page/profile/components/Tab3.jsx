@@ -3,7 +3,7 @@ import Tab3Item from "./Tab3Item";
 
 function Tab3(props) {
   return (
-    <div className="tab3" style={{ display: "none" }}>
+    <div className="tab3">
       <div className="row">
         <Tab3Item
           teacher_avatar="img/avt.png"
