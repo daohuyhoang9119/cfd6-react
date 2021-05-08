@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function CourseItem({
   name,
@@ -20,7 +21,6 @@ export default function CourseItem({
           ) : (
             <span className="badge b3">Sắp diễn ra</span>
           )}
-          <span className="badge b1">{status}</span>
           <div className="hover">
             <div className="top">
               <div className="user">
@@ -52,7 +52,9 @@ export default function CourseItem({
             </div>
             <div className="name">{teacher_name}</div>
           </div>
-          <div className="register-btn">Đăng Ký</div>
+          <Link to="/register" className="register-btn">
+            Đăng Ký
+          </Link>
         </div>
       </div>
     </div>

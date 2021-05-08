@@ -9,6 +9,7 @@ function RegisterForm(props) {
     coin: false,
     pay: "",
     feedback: "",
+    gender: "female",
   });
 
   const [error, setError] = useState({});
@@ -56,6 +57,13 @@ function RegisterForm(props) {
       value = e.target.checked;
       name = "coin";
     }
+    // if (e.target.type === "radio") {
+    //   value = e.target.checked;
+    //   console.log(e.target.value);
+    // }
+    console.log(e.target.value);
+    console.log(e.target.type);
+
     setForm({
       ...form,
       [name]: value,
@@ -131,6 +139,68 @@ function RegisterForm(props) {
           <span className="checkmark" />
         </div>
       </label>
+      <div>
+        <label className="disable">
+          <p>Gender</p>
+          <label
+            className="checkcontainer"
+            style={{ marginRight: "30px", zIndex: "1" }}
+          >
+            <strong>Nam</strong>
+
+            <input
+              type="radio"
+              value="male"
+              name="gender"
+              checked={form.gender === "male"}
+              onChange={inputOnchange}
+              style={{ zIndex: "10" }}
+            />
+            <span className="checkmark" />
+          </label>
+          <label className="checkcontainer" style={{ zIndex: "1" }}>
+            <strong>Nu</strong>
+            <input
+              type="radio"
+              value="female"
+              name="gender"
+              checked={form.gender === "female"}
+              onChange={inputOnchange}
+              style={{ zIndex: "10" }}
+            />
+            <span className="checkmark" />
+          </label>
+        </label>
+      </div>
+      {/* <div style={{ display: "flex" }}>
+        <label className="disable">
+          <p>Gender</p>
+          <div className="checkcontainer">
+            <strong>Male</strong>
+            <input
+              name="gender"
+              value="male"
+              type="radio"
+              onChange={inputOnchange}
+              checked={form.gender === "male"}
+            />
+            <span className="checkmark" />
+          </div>
+        </label>
+        <label className="disable">
+          <div className="checkcontainer">
+            <strong>Female</strong>
+            <input
+              name="gender"
+              value="female"
+              type="radio"
+              onChange={inputOnchange}
+              checked={form.gender === "female"}
+            />
+            <span className="checkmark" />
+          </div>
+        </label>
+      </div> */}
       <label>
         <p>Hình thức thanh toán</p>
         <div className="select">

@@ -5,8 +5,15 @@ import CourseList from "./components/CourseList";
 import Different from "./components/Different";
 import Gallery from "./components/Gallery";
 import Testimonial from "./components/Testimonial";
+import ReactLoading from "react-loading";
+import Login from "../../components/Login";
 
-function index(props) {
+function Home(props) {
+  let loading = false;
+  if (loading)
+    return (
+      <ReactLoading type="cylon" color="#00afab" height={667} width={375} />
+    );
   return (
     <main className="homepage" id="main">
       <Banner />
@@ -19,4 +26,4 @@ function index(props) {
   );
 }
 
-export default index;
+export default Home;

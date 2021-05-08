@@ -2,29 +2,29 @@ import React from "react";
 import CourseBox from "../../course/components/CourseBox";
 import TextBox from "./TextBox";
 
-function Section4(props) {
+function SiteProject() {
   return (
-    <section className="section-4">
+    <section className="section-3">
       <div className="container">
-        <TextBox sub_title="Khóa học" main_title="Liên quan" />
+        <TextBox sub_title="DỰ ÁN" main_title="THÀNH VIÊN" />
         <div className="list row">
           <CourseBox
             img="img/img.png"
-            name="Front-end căn bản"
+            name="React JS"
             desc="One of the best corporate fashion brands in Sydney"
             teacher_avatar="img/avt.png"
             teacher_name="Vương Đặng"
           />
           <CourseBox
             img="img/img2.png"
-            name="Front-end căn bản"
+            name="Animation"
             desc="One of the best corporate fashion brands in Sydney"
             teacher_avatar="img/avt.png"
             teacher_name="Trần Nghĩa"
           />
           <CourseBox
             img="img/img3.png"
-            name="Laravel framework"
+            name="Scss, Grunt JS và Boostrap 4"
             desc="One of the best corporate fashion brands in Sydney"
             teacher_avatar="img/avt.png"
             teacher_name="Trần Nghĩa"
@@ -35,4 +35,4 @@ function Section4(props) {
   );
 }
 
-export default Section4;
+export default SiteProject;

@@ -2,7 +2,7 @@ import React from "react";
 import Accordion from "./Accordion";
 import CheckItem from "./CheckItem";
 
-function Section2(props) {
+function Intro(props) {
   return (
     <section className="section-2">
       <div className="container">
@@ -131,4 +131,4 @@ function Section2(props) {
   );
 }
 
-export default Section2;
+export default Intro;

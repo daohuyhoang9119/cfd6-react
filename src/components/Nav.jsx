@@ -1,33 +1,97 @@
 import React from "react";
+import ReactDOM from "react-dom";
+import { Link, NavLink } from "react-router-dom";
+import useDelayLink from "../Hook/useDelayLink";
 
-function Nav(props) {
-  return (
+function Nav() {
+  const { delayLink, test } = useDelayLink();
+
+  function closeMenu() {
+    document.body.classList.remove("menu-is-show");
+    document.querySelector(".loading-page").style.transform = "scale(14)";
+  }
+
+  function log(e) {
+    console.log(e.target.innerText);
+  }
+
+  return ReactDOM.createPortal(
     <>
       <nav className="nav">
         <ul>
           <li className="li_login">
-            <a href="#">Đăng nhập</a>
+            <a href="#" onClick={log}>
+              Đăng nhập
+            </a>
             <a href="#">Đăng ký</a>
           </li>
-          <li className="active">
-            <a href="#">Trang chủ</a>
+          <li>
+            <NavLink
+              exact
+              to="/"
+              onClick={log}
+              // onClick={(e) => {
+              //   closeMenu();
+              //   delayLink(e);
+              // }}
+            >
+              Trang chủ
+            </NavLink>
           </li>
           <li>
-            <a href="#">CFD Team</a>
+            <NavLink
+              to="/team"
+              onClick={(e) => {
+                closeMenu();
+                delayLink(e);
+              }}
+            >
+              CFD Team
+            </NavLink>
           </li>
           <li>
-            <a href="#">Khóa Học</a>
+            <NavLink
+              to="/course"
+              onClick={(e) => {
+                closeMenu();
+                delayLink(e);
+              }}
+            >
+              Khóa Học
+            </NavLink>
           </li>
           <li>
-            <a href="#">Dự Án</a>
+            <NavLink
+              to="/project"
+              onClick={(e) => {
+                closeMenu();
+                delayLink(e);
+              }}
+            >
+              Dự Án
+            </NavLink>
           </li>
           <li>
-            <a href="#">Liên hệ</a>
+            <NavLink
+              to="/coop"
+              onClick={(e) => {
+                closeMenu();
+                delayLink(e);
+              }}
+            >
+              Liên hệ
+            </NavLink>
           </li>
         </ul>
       </nav>
-      <div className="overlay_nav" />
-    </>
+      <div
+        className="overlay_nav"
+        onClick={() => {
+          document.body.classList.remove("menu-is-show");
+        }}
+      />
+    </>,
+    document.body
   );
 }
 

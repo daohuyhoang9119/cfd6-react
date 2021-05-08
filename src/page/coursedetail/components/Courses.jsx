@@ -2,29 +2,29 @@ import React from "react";
 import CourseBox from "../../course/components/CourseBox";
 import TextBox from "./TextBox";
 
-function Section3(props) {
+function Courses() {
   return (
-    <section className="section-3">
+    <section className="section-4">
       <div className="container">
-        <TextBox sub_title="DỰ ÁN" main_title="THÀNH VIÊN" />
+        <TextBox sub_title="Khóa học" main_title="Liên quan" />
         <div className="list row">
           <CourseBox
             img="img/img.png"
-            name="React JS"
+            name="Front-end căn bản"
             desc="One of the best corporate fashion brands in Sydney"
             teacher_avatar="img/avt.png"
             teacher_name="Vương Đặng"
           />
           <CourseBox
             img="img/img2.png"
-            name="Animation"
+            name="Front-end căn bản"
             desc="One of the best corporate fashion brands in Sydney"
             teacher_avatar="img/avt.png"
             teacher_name="Trần Nghĩa"
           />
           <CourseBox
             img="img/img3.png"
-            name="Scss, Grunt JS và Boostrap 4"
+            name="Laravel framework"
             desc="One of the best corporate fashion brands in Sydney"
             teacher_avatar="img/avt.png"
             teacher_name="Trần Nghĩa"
@@ -35,4 +35,4 @@ function Section3(props) {
   );
 }
 
-export default Section3;
+export default Courses;

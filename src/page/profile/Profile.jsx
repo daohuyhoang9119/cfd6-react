@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import Info from "./components/Info";
 import Course from "./components/Course";
 import Project from "./components/Project";
@@ -7,13 +7,12 @@ import Coin from "./components/Coin";
 import TabTitle from "./components/TabTitle";
 import TopInfo from "./components/TopInfo";
 
-function Profile(props) {
-  const [tab, setTab] = useState(0);
+function Profile() {
+  let { path } = useRouteMatch();
 
-  function changeTab(e, index) {
-    e.preventDefault();
-    setTab(index);
-  }
+  // let check = true;
+
+  // check && <Redirect path="/" />;
 
   return (
     <main className="profile" id="main">
@@ -21,19 +20,15 @@ function Profile(props) {
         <TopInfo />
         <div className="container">
           <div className="tab">
-            <TabTitle changeTab={changeTab} tab={tab} />
+            <TabTitle path={path} />
             <div className="tab-content">
-              {tab === 0 ? (
-                <Info />
-              ) : tab === 1 ? (
-                <Course />
-              ) : tab === 2 ? (
-                <Project />
-              ) : tab === 3 ? (
-                <History />
-              ) : (
-                <Coin />
-              )}
+              <Switch>
+                <Route path={`${path}/course`} component={Course} />
+                <Route path={`${path}/project`} component={Project} />
+                <Route path={`${path}/history`} component={History} />
+                <Route path={`${path}/coin`} component={Coin} />
+                <Route component={Info} />
+              </Switch>
             </div>
           </div>
         </div>
