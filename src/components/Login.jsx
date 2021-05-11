@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 function Login() {
@@ -8,6 +8,54 @@ function Login() {
   function closeLogin() {
     document.querySelector(".register").style.display = "none";
   }
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    savePassword: false,
+  });
+  const [error, setError] = useState({});
+
+  function onSubmit() {
+    let errObj = {};
+    if (!form.email.trim()) {
+      errObj.email = "Email là bắt buộc";
+    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
+      errObj.email = "Email không đúng định dạng";
+    }
+    if (!form.password.trim()) {
+      errObj.password = "Password là bắt buộc";
+    } else if (
+      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/.test(
+        form.password.trim()
+      )
+    ) {
+      errObj.password =
+        "Password phải hơn 8 ký tự, ít nhất 1 số, ít nhất 1 ký tự đặc biệt";
+    }
+
+    setError(errObj);
+
+    if (Object.keys(errObj).length === 0) {
+      console.log(form);
+    }
+  }
+
+  function inputOnChange(e) {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    if ((e.target.type = "checkbox")) {
+      value = e.target.checked;
+      name = "savePassword";
+    }
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  }
+
   return ReactDOM.createPortal(
     <>
       <div
@@ -18,12 +66,36 @@ function Login() {
           {/* login-form */}
           <div className="ct_login" style={{ display: "block" }}>
             <h2 className="title">Đăng nhập</h2>
-            <input type="text" placeholder="Email / Số điện thoại" />
-            <input type="password" placeholder="Mật khẩu" />
+            <label>
+              <input
+                type="text"
+                placeholder="Email / Số điện thoại"
+                value={form.email}
+                name="email"
+                onChange={inputOnChange}
+              />
+              {error.email && <p className="error-text-login">{error.email}</p>}
+            </label>
+            <label>
+              <input
+                type="password"
+                placeholder="Mật khẩu"
+                value={form.password}
+                name="password"
+                onChange={inputOnChange}
+              />
+              {error.password && (
+                <p className="error-text-login">{error.password}</p>
+              )}
+            </label>
             <div className="remember">
               <label className="btn-remember">
                 <div>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    defaultChecked={form.savePassword}
+                    onChange={inputOnChange}
+                  />
                 </div>
                 <p>Nhớ mật khẩu</p>
               </label>
@@ -31,7 +103,9 @@ function Login() {
                 Quên mật khẩu?
               </a>
             </div>
-            <div className="btn rect main btn-login">đăng nhập</div>
+            <div className="btn rect main btn-login" onClick={onSubmit}>
+              đăng nhập
+            </div>
             <div className="text-register">
               <strong>hoặc đăng ký bằng</strong>
             </div>

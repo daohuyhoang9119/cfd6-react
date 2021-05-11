@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function CourseBox({ img, name, desc, teacher_avatar, teacher_name }) {
   return (
     <div className="col-md-4 course">
@@ -20,7 +20,9 @@ function CourseBox({ img, name, desc, teacher_avatar, teacher_name }) {
             </div>
             <div className="name">{teacher_name}</div>
           </div>
-          <div className="register-btn">Đăng Ký</div>
+          <Link className="register-btn" to="/register">
+            Đăng Ký
+          </Link>
         </div>
       </div>
     </div>

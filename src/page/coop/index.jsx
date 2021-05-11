@@ -1,30 +1,45 @@
-import React, { useRef, useState } from "react";
+import React, { useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "INPUT_CHANGE":
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          ...action.payload,
+        },
+      };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.payload,
+      };
+  }
+  return state;
+}
 
 function Coop() {
-  // let [name, setName] = useState("");
-  // let [phone, setPhone] = useState("");
-  // let [email, setEmail] = useState("");
-  // let [website, setWebsite] = useState("");
-  // let [title, setTitle] = useState("");
-  // let [content, setContent] = useState("");
-
-  let [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    website: "",
-    title: "",
-    content: "",
+  const [state, dispatch] = useReducer(reducer, {
+    form: {
+      name: "",
+      phone: "",
+      email: "",
+      website: "",
+      title: "",
+      content: "",
+    },
+    error: {
+      name: "",
+      phone: "",
+      email: "",
+      website: "",
+      title: "",
+      content: "",
+    },
   });
 
-  let [error, setError] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    website: "",
-    title: "",
-    content: "",
-  });
+  let { form, error } = state;
 
   function onSubmit() {
     let errorObj = {};
@@ -64,7 +79,11 @@ function Coop() {
       errorObj.content = "Content la bat buoc";
     }
 
-    setError(errorObj);
+    // setError(errorObj);
+    dispatch({
+      type: "SET_ERROR",
+      payload: errorObj,
+    });
 
     if (Object.keys(errorObj).length === 0) {
       console.log(form);
@@ -75,11 +94,18 @@ function Coop() {
     let name = e.target.name;
     let value = e.target.value;
     //console.log(e.target.name);
-    setForm({
-      ...form,
-      [name]: value,
+    dispatch({
+      type: "INPUT_CHANGE",
+      payload: {
+        [name]: value,
+      },
     });
+    // setForm({
+    //   ...form,
+    //   [name]: value,
+    // });
   }
+
   return (
     <main className="register-course" id="main">
       <section className="section-1 wrap container">
@@ -102,7 +128,7 @@ function Coop() {
               name="name"
               onChange={inputOnchange}
             />
-            {error.name ? <p className="error-text">{error.name}</p> : null}
+            {error.name && <p className="error-text">{error.name}</p>}
           </label>
           <label>
             <p>Số điện thoại</p>
@@ -113,7 +139,7 @@ function Coop() {
               name="phone"
               onChange={inputOnchange}
             />
-            {error.phone ? <p className="error-text">{error.phone}</p> : null}
+            {error.phone && <p className="error-text">{error.phone}</p>}
           </label>
           <label>
             <p>
@@ -126,7 +152,7 @@ function Coop() {
               name="email"
               onChange={inputOnchange}
             />
-            {error.email ? <p className="error-text">{error.email}</p> : null}
+            {error.email && <p className="error-text">{error.email}</p>}
           </label>
           <label>
             <p>Website</p>
@@ -137,9 +163,7 @@ function Coop() {
               name="website"
               onChange={inputOnchange}
             />
-            {error.website ? (
-              <p className="error-text">{error.website}</p>
-            ) : null}
+            {error.website && <p className="error-text">{error.website}</p>}
           </label>
           <label>
             <p>
@@ -152,7 +176,7 @@ function Coop() {
               name="title"
               onChange={inputOnchange}
             />
-            {error.title ? <p className="error-text">{error.title}</p> : null}
+            {error.title && <p className="error-text">{error.title}</p>}
           </label>
           <label>
             <p>
@@ -167,26 +191,13 @@ function Coop() {
               name="content"
               onChange={inputOnchange}
             />
-            {error.content ? (
-              <p className="error-text">{error.content}</p>
-            ) : null}
+            {error.content && <p className="error-text">{error.content}</p>}
           </label>
           <div className="btn main rect" onClick={onSubmit}>
             đăng ký
           </div>
         </div>
       </section>
-      {/* <div class="register-success">
-            <div class="contain">
-                <div class="main-title">đăng ký thành công</div>
-                <p>
-                    <strong>Chào mừng Trần Nghĩa đã trở thành thành viên mới của CFD Team.</strong> <br>
-                    Cảm ơn bạn đã đăng ký khóa học tại <strong>CFD</strong>, chúng tôi sẽ chủ động liên lạc với bạn thông qua facebook
-                    hoặc số điện thoại của bạn.
-                </p>
-            </div>
-            <a href="/" class="btn main rect">về trang chủ</a>
-        </div> */}
     </main>
   );
 }

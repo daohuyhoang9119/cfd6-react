@@ -3,7 +3,7 @@
 }
 .error-text {
   font-style: italic;
-  color: #00afab;
+  color: red;
   width: 100% !important;
   padding-left: 180px;
 }
@@ -30,4 +30,11 @@
 
 .profile .tab .tab-content .tab1 label {
   flex-wrap: wrap;
+}
+
+.error-text-login {
+  font-style: italic;
+  color: red;
+  width: 100% !important;
+  margin-bottom: 15px;
 }

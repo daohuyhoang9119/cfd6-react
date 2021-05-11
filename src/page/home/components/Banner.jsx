@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Banner(props) {
   return (
@@ -7,7 +8,9 @@ function Banner(props) {
         <div className="content">
           <h2 className="title">Thực Chiến</h2>
           <h2 className="title">Tạo ra sản phẩm có giá trị</h2>
-          <div className="btn main round">KHÓA HỌC</div>
+          <Link className="btn main round" to="/course">
+            KHÓA HỌC
+          </Link>
         </div>
       </div>
       <div className="jarallax-img">
