@@ -1,8 +1,8 @@
 import React from "react";
-import useValidateForm from "../../../Hook/useValidateForm";
+import useValidate from "../../../Hook/useValidate";
 
 function RegisterForm() {
-  const { form, error, inputOnChange, check } = useValidateForm(
+  const { form, error, inputOnChange, check } = useValidate(
     {
       name: "",
       phone: "",
