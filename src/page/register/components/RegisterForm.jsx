@@ -40,7 +40,7 @@ function RegisterForm() {
           required: "Họ và tên không được để trống",
         },
         phone: {
-          required: "Số điện thoại không được để trống",
+          required: "Phải là số điện thoại Việt Nam",
           pattern: "Phải là số điện thoại Việt Nam",
         },
         email: {

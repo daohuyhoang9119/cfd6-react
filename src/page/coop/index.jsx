@@ -1,27 +1,9 @@
-import React, { useReducer } from "react";
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "INPUT_CHANGE":
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          ...action.payload,
-        },
-      };
-    case "SET_ERROR":
-      return {
-        ...state,
-        error: action.payload,
-      };
-  }
-  return state;
-}
+import React from "react";
+import useValidate from "../../Hook/useValidate";
 
 function Coop() {
-  const [state, dispatch] = useReducer(reducer, {
-    form: {
+  const { form, error, inputOnChange, check } = useValidate(
+    {
       name: "",
       phone: "",
       email: "",
@@ -29,82 +11,111 @@ function Coop() {
       title: "",
       content: "",
     },
-    error: {
-      name: "",
-      phone: "",
-      email: "",
-      website: "",
-      title: "",
-      content: "",
-    },
-  });
-
-  let { form, error } = state;
+    {
+      rule: {
+        name: {
+          require: true,
+        },
+        phone: {
+          pattern: "phone",
+        },
+        email: {
+          require: true,
+          pattern: "email",
+        },
+        website: {
+          pattern: "website",
+        },
+        title: {
+          require: true,
+        },
+        content: {
+          require: true,
+        },
+      },
+      message: {
+        name: {
+          require: "Họ và tên không được để trống",
+        },
+        phone: {
+          require: "Số điện thoại phải là 10 chữ số ",
+        },
+        email: {
+          require: "Email không được để trống ",
+          pattern: "Email không đúng định dạng",
+        },
+        website: {
+          require: "Website không đúng định dạng",
+        },
+      },
+    }
+  );
 
   function onSubmit() {
-    let errorObj = {};
+    // let errorObj = {};
 
-    form.name.trim().replace(/ +/g, " ");
-    if (!form.name.trim()) {
-      errorObj.name = "Name la bat buoc";
-    }
+    // form.name.trim().replace(/ +/g, " ");
+    // if (!form.name.trim()) {
+    //   errorObj.name = "Name la bat buoc";
+    // }
 
-    if (!form.phone.trim()) {
-      errorObj.phone = "Phone la bat buoc";
-    } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
-      errorObj.phone = "Phone khong dung dinh dang";
-    }
+    // if (!form.phone.trim()) {
+    //   errorObj.phone = "Phone la bat buoc";
+    // } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
+    //   errorObj.phone = "Phone khong dung dinh dang";
+    // }
 
-    if (!form.email.trim()) {
-      errorObj.email = "Email la bat buoc";
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
-      errorObj.email = "Email khong dung dinh dang";
-    }
+    // if (!form.email.trim()) {
+    //   errorObj.email = "Email la bat buoc";
+    // } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
+    //   errorObj.email = "Email khong dung dinh dang";
+    // }
 
-    //website
-    if (
-      form.website.trim() &&
-      !/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
-        form.website.trim()
-      )
-    ) {
-      errorObj.website = "Website khong dung dinh dang";
-    }
+    // //website
+    // if (
+    //   form.website.trim() &&
+    //   !/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
+    //     form.website.trim()
+    //   )
+    // ) {
+    //   errorObj.website = "Website khong dung dinh dang";
+    // }
 
-    if (!form.title.trim()) {
-      errorObj.title = "Title la bat buoc";
-    }
+    // if (!form.title.trim()) {
+    //   errorObj.title = "Title la bat buoc";
+    // }
 
-    if (!form.content.trim()) {
-      errorObj.content = "Content la bat buoc";
-    }
+    // if (!form.content.trim()) {
+    //   errorObj.content = "Content la bat buoc";
+    // }
 
-    // setError(errorObj);
-    dispatch({
-      type: "SET_ERROR",
-      payload: errorObj,
-    });
+    // // setError(errorObj);
+    // dispatch({
+    //   type: "SET_ERROR",
+    //   payload: errorObj,
+    // });
+    let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
       console.log(form);
     }
   }
 
-  function inputOnchange(e) {
-    let name = e.target.name;
-    let value = e.target.value;
-    //console.log(e.target.name);
-    dispatch({
-      type: "INPUT_CHANGE",
-      payload: {
-        [name]: value,
-      },
-    });
-    // setForm({
-    //   ...form,
-    //   [name]: value,
-    // });
-  }
+  // function inputOnchange(e) {
+  //   let name = e.target.name;
+  //   let value = e.target.value;
+  //   //console.log(e.target.name);
+  //   dispatch({
+  //     type: "INPUT_CHANGE",
+  //     payload: {
+  //       [name]: value,
+  //     },
+  //   });
+  //   // setForm({
+  //   //   ...form,
+  //   //   [name]: value,
+  //   // });
+  // }
 
   return (
     <main className="register-course" id="main">
@@ -126,7 +137,7 @@ function Coop() {
               placeholder="Họ và tên bạn"
               value={form.name}
               name="name"
-              onChange={inputOnchange}
+              onChange={inputOnChange}
             />
             {error.name && <p className="error-text">{error.name}</p>}
           </label>
@@ -137,7 +148,7 @@ function Coop() {
               placeholder="Số điện thoại"
               value={form.phone}
               name="phone"
-              onChange={inputOnchange}
+              onChange={inputOnChange}
             />
             {error.phone && <p className="error-text">{error.phone}</p>}
           </label>
@@ -150,7 +161,7 @@ function Coop() {
               placeholder="Email của bạn"
               value={form.email}
               name="email"
-              onChange={inputOnchange}
+              onChange={inputOnChange}
             />
             {error.email && <p className="error-text">{error.email}</p>}
           </label>
@@ -161,7 +172,7 @@ function Coop() {
               placeholder="Đường dẫn website http://"
               value={form.website}
               name="website"
-              onChange={inputOnchange}
+              onChange={inputOnChange}
             />
             {error.website && <p className="error-text">{error.website}</p>}
           </label>
@@ -174,7 +185,7 @@ function Coop() {
               placeholder="Tiêu đề liên hệ"
               value={form.title}
               name="title"
-              onChange={inputOnchange}
+              onChange={inputOnChange}
             />
             {error.title && <p className="error-text">{error.title}</p>}
           </label>
@@ -189,7 +200,7 @@ function Coop() {
               defaultValue={""}
               value={form.content}
               name="content"
-              onChange={inputOnchange}
+              onChange={inputOnChange}
             />
             {error.content && <p className="error-text">{error.content}</p>}
           </label>

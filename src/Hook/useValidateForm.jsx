@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 let emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i;
 let phonePattern = /(84|0[3|5|7|8|9])+([0-9]{8})\b/i;
-let facebookPattern = /(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/i;
+let facebookPattern =
+  /(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/i;
 
 function useValidateForm(initForm, validate) {
   const [form, setForm] = useState({
@@ -32,41 +33,15 @@ function useValidateForm(initForm, validate) {
   }
   function check() {
     let errorObj = {};
-    // form.name.trim().replace(/ +/g, " ");
-    // if (!form.name.trim()) {
-    //   errorObj.name = "Họ và tên là bắt buộc";
-    // }
-    // if (!form.phone.trim()) {
-    //   errorObj.phone = "Số điện thoại là bắt buộc";
-    // } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone)) {
-    //   errorObj.phone = "Phone không đúng định dạng";
-    // }
-    // if (!form.email.trim()) {
-    //   errorObj.email = "Email là bắt buộc";
-    // } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
-    //   errorObj.email = "Email không đúng định dạng";
-    // }
-    // if (!form.url.trim()) {
-    //   errorObj.url = "Link Facebook cá nhân là bắt buộc";
-    // } else if (
-    //   !/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/.test(
-    //     form.url.trim()
-    //   )
-    // ) {
-    //   errorObj.url = "Link Facebook cá nhân không đúng định dạng";
-    // }
-    // if (!form.feedback.trim()) {
-    //   errorObj.feedback = "Lời nhận xét là bắt buộc";
-    // }
-
     let { rule, message } = validate;
-    console.log(rule);
     for (let i in rule) {
       let r = rule[i];
       let m = message?.[i] || {};
 
+      //Nếu field đó có require và giá trị i trong form khong có giá trị
       if (r.require && !form[i]?.trim()) {
         errorObj[i] = m?.require || "Trường này không được để trống";
+        //err obj thứ i sẽ lấy message nếu có hoặc trường này ...
       }
 
       if (r.pattern && form[i]) {
