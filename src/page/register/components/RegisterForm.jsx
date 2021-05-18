@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import useValidate from "../../../Hook/useValidate";
 import CoursesApi from "../../../service/coursesApi";
+import { useParams, useHistory } from "react-router";
 
 function RegisterForm() {
+  let { slug } = useParams();
+  let history = useHistory();
   const { form, error, inputOnChange, check } = useValidate(
     {
       name: "",
@@ -30,11 +33,10 @@ function RegisterForm() {
         },
         url: {
           require: true,
-          pattern: "facebook",
+          pattern: "urlFacebook",
         },
         feedback: {
           require: true,
-          pattern: "feedback",
         },
       },
       message: {
@@ -57,25 +59,15 @@ function RegisterForm() {
     }
   );
 
-  function onRegister() {
+  async function onRegister() {
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      console.log(form);
+      // console.log(form);
       //gửi giá trị lên API
-      CoursesApi(form);
+      let res = CoursesApi.register(form, slug);
     }
   }
-  // function selectPayment(e) {
-  //   e.preventDefault();
-  //   setForm({
-  //     ...form,
-  //     payment: e.target.dataset.value,
-  //   });
-  //   document.querySelector(".sub").style.display = "block";
-  // }
-  // function closePayment(e) {}
-
   return (
     <div className="form">
       <label>

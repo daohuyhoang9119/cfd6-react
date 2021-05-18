@@ -56,8 +56,14 @@ function useValidate(initForm, validate) {
   }
 
   function inputOnChange(e) {
-    const name = e.target.name;
-    const value = e.target.value;
+    let name = e.target.name;
+    let value = e.target.value;
+    let type = e.target.type;
+
+    if (type === "checkbox") {
+      value = e.target.checked;
+    }
+
     setForm({
       ...form,
       [name]: value,

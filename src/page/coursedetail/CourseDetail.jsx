@@ -6,10 +6,7 @@ import Courses from "./components/Courses";
 import { useParams } from "react-router";
 
 function CourseDetail(props) {
-  // let { slug } = useParams();
-  // console.log(slug);
-
-  //query pram
+  let { slug } = useParams();
 
   return (
     <main class="course-detail" id="main">

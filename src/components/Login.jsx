@@ -7,24 +7,23 @@ function Login() {
   let [loginError, setLoginError] = useState(null);
   const { form, error, check, inputOnChange } = useValidate(
     {
-      email: "",
+      username: "",
       password: "",
     },
     {
       rule: {
-        email: {
+        username: {
           require: true,
           pattern: "email",
         },
         password: {
           require: true,
-
           min: 6,
           max: 32,
         },
       },
       message: {
-        email: {
+        username: {
           require: "Email không được để trống ",
           pattern: "Email không đúng định dạng",
         },
@@ -49,7 +48,6 @@ function Login() {
   async function onSubmit() {
     let errObj = check();
     if (Object.keys(errObj).length === 0) {
-      // console.log(form);
       let res = await handleLogin(form.username, form.password);
       if (res.success) {
         closeLogin();

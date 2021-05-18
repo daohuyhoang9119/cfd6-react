@@ -80,7 +80,7 @@ function App() {
           <Route path="/email" component={Email} />
           <Route path="/coop" component={Coop} />
           <Route path="/coursedetail/:slug" component={CourseDetail} />
-          <Route path="/coursedetail" component={CourseDetail} />
+          {/* <Route path="/coursedetail" component={CourseDetail} /> */}
           <Route path="/faq" component={Faq} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/Project" component={Project} />

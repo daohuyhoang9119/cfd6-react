@@ -6,12 +6,15 @@ const CoursesApi = {
       method: "GET",
     }).then((res) => res.json());
   },
-  register(data) {
-    return fetch(`${endpoint}/elearning/v4/course-register`, {
+  register(data, slug) {
+    let token = JSON.parse(localStorage.getItem("login"));
+
+    return fetch(`${endpoint}/elearning/v4/course-register/${slug}`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     }).then((res) => res.json());
   },
