@@ -1,7 +1,7 @@
 import React from "react";
 import CourseItem from "../../.././components/CourseItem";
 
-function CourseList(props) {
+function CourseList({ online, offline }) {
   return (
     <>
       <section className="section-courseoffline">
@@ -14,52 +14,9 @@ function CourseList(props) {
             <h2 className="main-title">Khóa học Offline</h2>
           </div>
           <div className="list row">
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img1.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-              status="da-ket-thuc"
-            />
-            <CourseItem
-              name="Webresponsive"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img2.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-              status="dang-dien-ra"
-            />
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img3.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-            />
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img4.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-              status="dang-dien-ra"
-            />
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img5.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-            />
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img6.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-              status="dang-dien-ra"
-            />
+            {offline.map((value, i) => (
+              <CourseItem key={value.slug} {...value} />
+            ))}
           </div>
         </div>
       </section>
@@ -69,30 +26,9 @@ function CourseList(props) {
             <h2 className="main-title">Khóa học Online</h2>
           </div>
           <div className="list row">
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img6.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-              status="dang-dien-ra"
-            />
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img6.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-              status="dang-dien-ra"
-            />
-            <CourseItem
-              name="Reactjs + Redux"
-              description="One of the best corporate fashion brands in Sydney"
-              image="img/img6.png"
-              teacher_name="Đặng Thuyền Vương"
-              teacher_avatar="img/avt.png"
-              status="dang-dien-ra"
-            />
+            {online.map((value, i) => (
+              <CourseItem key={value.slug} {...value} />
+            ))}
           </div>
           <div className="text-deco">C</div>
         </div>

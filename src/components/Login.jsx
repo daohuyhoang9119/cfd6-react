@@ -1,7 +1,44 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+import useAuth from "../Hook/useAuth";
+import useValidate from "../Hook/useValidate";
 
 function Login() {
+  let [loginError, setLoginError] = useState(null);
+  const { form, error, check, inputOnChange } = useValidate(
+    {
+      email: "",
+      password: "",
+    },
+    {
+      rule: {
+        email: {
+          require: true,
+          pattern: "email",
+        },
+        password: {
+          require: true,
+
+          min: 6,
+          max: 32,
+        },
+      },
+      message: {
+        email: {
+          require: "Email không được để trống ",
+          pattern: "Email không đúng định dạng",
+        },
+        password: {
+          require: "Password không được để trống",
+          pattern:
+            "Password phải hơn 8 ký tự, ít nhất 1 số, ít nhất 1 ký tự đặc biệt",
+        },
+      },
+    }
+  );
+
+  let { handleLogin } = useAuth();
+
   function closeSignUp() {
     document.querySelector(".sign-up").style.display = "none";
   }
@@ -9,51 +46,17 @@ function Login() {
     document.querySelector(".register").style.display = "none";
   }
 
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-    savePassword: false,
-  });
-  const [error, setError] = useState({});
-
-  function onSubmit() {
-    let errObj = {};
-    if (!form.email.trim()) {
-      errObj.email = "Email là bắt buộc";
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
-      errObj.email = "Email không đúng định dạng";
-    }
-    if (!form.password.trim()) {
-      errObj.password = "Password là bắt buộc";
-    } else if (
-      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/.test(
-        form.password.trim()
-      )
-    ) {
-      errObj.password =
-        "Password phải hơn 8 ký tự, ít nhất 1 số, ít nhất 1 ký tự đặc biệt";
-    }
-
-    setError(errObj);
-
+  async function onSubmit() {
+    let errObj = check();
     if (Object.keys(errObj).length === 0) {
-      console.log(form);
+      // console.log(form);
+      let res = await handleLogin(form.username, form.password);
+      if (res.success) {
+        closeLogin();
+      } else if (res.error) {
+        setLoginError(res.error);
+      }
     }
-  }
-
-  function inputOnChange(e) {
-    let name = e.target.name;
-    let value = e.target.value;
-
-    if ((e.target.type = "checkbox")) {
-      value = e.target.checked;
-      name = "savePassword";
-    }
-
-    setForm({
-      ...form,
-      [name]: value,
-    });
   }
 
   return ReactDOM.createPortal(
@@ -66,15 +69,18 @@ function Login() {
           {/* login-form */}
           <div className="ct_login" style={{ display: "block" }}>
             <h2 className="title">Đăng nhập</h2>
+            {loginError && <p className="error-text">{loginError}</p>}
             <label>
               <input
                 type="text"
                 placeholder="Email / Số điện thoại"
-                value={form.email}
-                name="email"
+                value={form.username}
+                name="username"
                 onChange={inputOnChange}
               />
-              {error.email && <p className="error-text-login">{error.email}</p>}
+              {error.username && (
+                <p className="error-text-login">{error.username}</p>
+              )}
             </label>
             <label>
               <input
@@ -91,11 +97,7 @@ function Login() {
             <div className="remember">
               <label className="btn-remember">
                 <div>
-                  <input
-                    type="checkbox"
-                    defaultChecked={form.savePassword}
-                    onChange={inputOnChange}
-                  />
+                  <input type="checkbox" />
                 </div>
                 <p>Nhớ mật khẩu</p>
               </label>

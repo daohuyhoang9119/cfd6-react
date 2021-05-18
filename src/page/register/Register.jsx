@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import CoursesApi from "../../service/coursesApi";
 import RegisterForm from "./components/RegisterForm";
 import RegisterInfo from "./components/RegisterInfo";
 

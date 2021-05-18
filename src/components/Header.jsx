@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import useAuth from "../Hook/useAuth";
+
 function Header() {
+  let { login, handleLogout } = useAuth();
+
   function toggleMenu() {
     document.body.classList.toggle("menu-is-show");
   }
@@ -30,35 +34,38 @@ function Header() {
             <h1>CFD</h1>
           </Link>
           <div className="right">
-            {/* <div className="have-login">
-              <div className="account">
-                <Link to="/profile" className="info">
-                  <div className="name">Trần Lê Trọng Nghĩa</div>
-                  <div className="avatar">
-                    <img src="/img/avt.png" alt="" />
-                  </div>
-                </Link>
+            {login ? (
+              <div className="have-login">
+                <div className="account">
+                  <Link to="/profile" className="info">
+                    <div className="name">{login.name}</div>
+                    <div className="avatar">
+                      <img src={login.avatar} alt="" />
+                    </div>
+                  </Link>
+                </div>
+                <div className="hamberger"></div>
+                <div className="sub">
+                  <Link to="/course">Khóa học của tôi</Link>
+                  <Link to="/profile">Thông tin tài khoản</Link>
+                  <Link onClick={handleLogout}>Đăng xuất</Link>
+                  {/* ko cần để link trong đây vì setState tự redirect lại */}
+                </div>
               </div>
-              <div className="hamberger"></div>
-              <div className="sub">
-                <Link to="/profile">Khóa học của tôi</Link>
-                <Link to="/profile">Thông tin tài khoản</Link>
-                <Link to="/profile">Đăng xuất</Link>
+            ) : (
+              <div class="not-login bg-none">
+                <a href="#" class="btn-register" onClick={toggleLogin}>
+                  Đăng nhập
+                </a>
+                <a
+                  href="login.html"
+                  class="btn main btn-open-login"
+                  onClick={(e) => toggleSignUp(e)}
+                >
+                  Đăng ký
+                </a>
               </div>
-            </div> */}
-
-            <div class="not-login bg-none">
-              <a href="#" class="btn-register" onClick={toggleLogin}>
-                Đăng nhập
-              </a>
-              <a
-                href="login.html"
-                class="btn main btn-open-login"
-                onClick={(e) => toggleSignUp(e)}
-              >
-                Đăng ký
-              </a>
-            </div>
+            )}
           </div>
         </div>
       </header>

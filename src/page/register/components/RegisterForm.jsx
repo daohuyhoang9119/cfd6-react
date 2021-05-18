@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import useValidate from "../../../Hook/useValidate";
+import CoursesApi from "../../../service/coursesApi";
 
 function RegisterForm() {
   const { form, error, inputOnChange, check } = useValidate(
@@ -12,6 +13,7 @@ function RegisterForm() {
       pay: "",
       feedback: "",
       gender: "female",
+      payment: "chuyen-khoan",
     },
     {
       rule: {
@@ -60,8 +62,19 @@ function RegisterForm() {
 
     if (Object.keys(errorObj).length === 0) {
       console.log(form);
+      //gửi giá trị lên API
+      CoursesApi(form);
     }
   }
+  // function selectPayment(e) {
+  //   e.preventDefault();
+  //   setForm({
+  //     ...form,
+  //     payment: e.target.dataset.value,
+  //   });
+  //   document.querySelector(".sub").style.display = "block";
+  // }
+  // function closePayment(e) {}
 
   return (
     <div className="form">
@@ -165,49 +178,21 @@ function RegisterForm() {
           </label>
         </label>
       </div>
-      {/* <div style={{ display: "flex" }}>
-        <label className="disable">
-          <p>Gender</p>
-          <div className="checkcontainer">
-            <strong>Male</strong>
-            <input
-              name="gender"
-              value="male"
-              type="radio"
-              onChange={inputOnchange}
-              checked={form.gender === "male"}
-            />
-            <span className="checkmark" />
-          </div>
-        </label>
-        <label className="disable">
-          <div className="checkcontainer">
-            <strong>Female</strong>
-            <input
-              name="gender"
-              value="female"
-              type="radio"
-              onChange={inputOnchange}
-              checked={form.gender === "female"}
-            />
-            <span className="checkmark" />
-          </div>
-        </label>
-      </div> */}
       <label>
         <p>Hình thức thanh toán</p>
         <div className="select">
           <div className="head">Chuyển khoản</div>
           <div className="sub">
-            <a href="#" value="CK">
+            <a href="#" data-value="chuyen-khoan" data-name="payment">
               Chuyển khoản
             </a>
 
-            <a href="#" value="TM">
+            <a href="#" data-value="tien-mat" data-name="payment">
               Thanh toán tiền mặt
             </a>
           </div>
         </div>
+        {error.payment && <p className="error-text">{error.payment}</p>}
       </label>
       <label>
         <p>

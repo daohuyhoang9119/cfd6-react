@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import useValidate from "../../Hook/useValidate";
+import ContactApi from "../../service/contactApi";
 
 function Coop() {
   const { form, error, inputOnChange, check } = useValidate(
@@ -18,6 +19,7 @@ function Coop() {
         },
         phone: {
           pattern: "phone",
+          require: true,
         },
         email: {
           require: true,
@@ -38,7 +40,8 @@ function Coop() {
           require: "Họ và tên không được để trống",
         },
         phone: {
-          require: "Số điện thoại phải là 10 chữ số ",
+          require: "Số điện thoại không được để trống",
+          pattern: "Số điện thoại không đúng định dạng",
         },
         email: {
           require: "Email không được để trống ",
@@ -52,70 +55,12 @@ function Coop() {
   );
 
   function onSubmit() {
-    // let errorObj = {};
-
-    // form.name.trim().replace(/ +/g, " ");
-    // if (!form.name.trim()) {
-    //   errorObj.name = "Name la bat buoc";
-    // }
-
-    // if (!form.phone.trim()) {
-    //   errorObj.phone = "Phone la bat buoc";
-    // } else if (!/(84|0[3|5|7|8|9])+([0-9]{8})\b/.test(form.phone.trim())) {
-    //   errorObj.phone = "Phone khong dung dinh dang";
-    // }
-
-    // if (!form.email.trim()) {
-    //   errorObj.email = "Email la bat buoc";
-    // } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email.trim())) {
-    //   errorObj.email = "Email khong dung dinh dang";
-    // }
-
-    // //website
-    // if (
-    //   form.website.trim() &&
-    //   !/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(
-    //     form.website.trim()
-    //   )
-    // ) {
-    //   errorObj.website = "Website khong dung dinh dang";
-    // }
-
-    // if (!form.title.trim()) {
-    //   errorObj.title = "Title la bat buoc";
-    // }
-
-    // if (!form.content.trim()) {
-    //   errorObj.content = "Content la bat buoc";
-    // }
-
-    // // setError(errorObj);
-    // dispatch({
-    //   type: "SET_ERROR",
-    //   payload: errorObj,
-    // });
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      console.log(form);
+      ContactApi.contact(form);
     }
   }
-
-  // function inputOnchange(e) {
-  //   let name = e.target.name;
-  //   let value = e.target.value;
-  //   //console.log(e.target.name);
-  //   dispatch({
-  //     type: "INPUT_CHANGE",
-  //     payload: {
-  //       [name]: value,
-  //     },
-  //   });
-  //   // setForm({
-  //   //   ...form,
-  //   //   [name]: value,
-  //   // });
-  // }
 
   return (
     <main className="register-course" id="main">
@@ -142,7 +87,9 @@ function Coop() {
             {error.name && <p className="error-text">{error.name}</p>}
           </label>
           <label>
-            <p>Số điện thoại</p>
+            <p>
+              Số điện thoại<span>*</span>
+            </p>
             <input
               type="text"
               placeholder="Số điện thoại"

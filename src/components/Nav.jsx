@@ -11,25 +11,19 @@ function Nav() {
     document.querySelector(".loading-page").style.transform = "scale(14)";
   }
 
-  function log(e) {
-    console.log(e.target.innerText);
-  }
-
   return ReactDOM.createPortal(
     <>
       <nav className="nav">
         <ul>
           <li className="li_login">
-            <a href="#" onClick={log}>
-              Đăng nhập
-            </a>
+            <a href="#">Đăng nhập</a>
             <a href="#">Đăng ký</a>
           </li>
           <li>
             <NavLink
               exact
               to="/"
-              onClick={log}
+
               // onClick={(e) => {
               //   closeMenu();
               //   delayLink(e);
