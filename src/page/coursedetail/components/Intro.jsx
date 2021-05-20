@@ -2,69 +2,22 @@ import React from "react";
 import Accordion from "./Accordion";
 import CheckItem from "./CheckItem";
 
-function Intro(props) {
+function Intro({ content, long_description }) {
   return (
     <section className="section-2">
       <div className="container">
-        <p className="des">
-          Many Laravel apps don’t warrant the complexity of a full front-end
-          framework like Vue or React. In this series, we’ll walk through a
-          handful of simple ways to add dynamic functionality to your apps.
-        </p>
+        <p className="des">{long_description}</p>
         <h2 className="title">giới thiệu về khóa học</h2>
         <div className="cover">
-          <img src="img/course-detail-img.png" alt="" />
+          <img src="/img/course-detail-img.png" alt="" />
         </div>
         <h3 className="title">nội dung khóa học</h3>
-        <Accordion
-          day="Ngày 1"
-          name="Giới thiệu HTML, SEO, BEM."
-          content="I'd like to demonstrate a powerful little pattern called
-            “Server-Fetched Partials” that offers some tangible benefits over
-            alternatives like VueJS for simple page interactions."
-        />
-        <Accordion
-          day="Ngày 2"
-          name="CSS, CSS3, Flexbox, Grid"
-          content="I'd like to demonstrate a powerful little pattern called
-            “Server-Fetched Partials” that offers some tangible benefits over
-            alternatives like VueJS for simple page interactions."
-        />
-        <Accordion
-          day="Ngày 2"
-          name="CSS, CSS3, Flexbox, Grid"
-          content="I'd like to demonstrate a powerful little pattern called
-            “Server-Fetched Partials” that offers some tangible benefits over
-            alternatives like VueJS for simple page interactions."
-        />
-        <Accordion
-          day="Ngày 3"
-          name="Media Queries"
-          content="I'd like to demonstrate a powerful little pattern called
-            “Server-Fetched Partials” that offers some tangible benefits over
-            alternatives like VueJS for simple page interactions."
-        />
-        <Accordion
-          day="Ngày 4"
-          name="Boostrap 4"
-          content="I'd like to demonstrate a powerful little pattern called
-            “Server-Fetched Partials” that offers some tangible benefits over
-            alternatives like VueJS for simple page interactions."
-        />
-        <Accordion
-          day="Ngày 5"
-          name="Thực hành dự án website Landing Page"
-          content="I'd like to demonstrate a powerful little pattern called
-            “Server-Fetched Partials” that offers some tangible benefits over
-            alternatives like VueJS for simple page interactions."
-        />
-        <Accordion
-          day="Ngày 6"
-          name="Cài đặt Grunt và cấu trúc thư mục dự án"
-          content="I'd like to demonstrate a powerful little pattern called
-            “Server-Fetched Partials” that offers some tangible benefits over
-            alternatives like VueJS for simple page interactions."
-        />
+        {/* render ra qua trinh day cac buoi hoc */}
+
+        {content?.map((item, i) => (
+          <Accordion key={i} {...item} day={i + 1} />
+        ))}
+
         <h3 className="title">yêu cầu cần có</h3>
         <div className="row row-check">
           <CheckItem content="Đã từng học qua HTML, CSS" />

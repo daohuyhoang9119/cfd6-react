@@ -1,11 +1,11 @@
 import React from "react";
 
-function Accordion({ day, name, content }) {
+function Accordion({ title, content, day }) {
   return (
     <div className="accordion">
       <div className="accordion__title">
-        <div className="date">{day}</div>
-        <h3>{name}</h3>
+        <div className="date">{`Ngày ${day}`}</div>
+        <h3>{title}</h3>
       </div>
       <div className="content">{content}</div>
     </div>

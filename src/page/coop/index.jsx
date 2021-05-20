@@ -54,11 +54,16 @@ function Coop() {
     }
   );
 
-  function onSubmit() {
+  async function onSubmit() {
     let errorObj = check();
 
     if (Object.keys(errorObj).length === 0) {
-      ContactApi.contact(form);
+      let res = await ContactApi.contact(form);
+      if (res.success) {
+        alert("Gửi thông tin liên lạc thành công");
+      } else if (res.error) {
+        alert("Gửi thông tin liên lạc không thành công");
+      }
     }
   }
 

@@ -46,6 +46,7 @@ function App() {
       });
 
       if (res.data) {
+        localStorage.setItem("token", JSON.stringify(res.data.token));
         setState({
           ...state,
           login: res.data,
@@ -84,7 +85,7 @@ function App() {
           <Route path="/faq" component={Faq} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/Project" component={Project} />
-          <Route path="/register" component={Register} />
+          <Route path="/register/:slug" component={Register} />
           <Route path="/pay" component={Pay} />
           <Route path="/introcoin" component={IntroCoin} />
           <Route path="/team" component={Team} />

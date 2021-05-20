@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useValidate from "../../../Hook/useValidate";
 import CoursesApi from "../../../service/coursesApi";
 import { useParams, useHistory } from "react-router";
@@ -6,12 +6,15 @@ import { useParams, useHistory } from "react-router";
 function RegisterForm() {
   let { slug } = useParams();
   let history = useHistory();
+  let [course, setCourse] = useState();
+
+  //form
   const { form, error, inputOnChange, check } = useValidate(
     {
       name: "",
       phone: "",
       email: "",
-      url: "",
+      fb: "",
       coin: false,
       pay: "",
       feedback: "",
@@ -31,7 +34,7 @@ function RegisterForm() {
           require: true,
           pattern: "email",
         },
-        url: {
+        fb: {
           require: true,
           pattern: "urlFacebook",
         },
@@ -51,13 +54,20 @@ function RegisterForm() {
           required: "Email không được để trống",
           pattern: "Email không đúng định dạng",
         },
-        url: {
+        fb: {
           required: "Facebook cá nhân không được để trống",
           pattern: "Link Facebook cá nhân không đúng định dạng",
         },
       },
     }
   );
+
+  useEffect(async () => {
+    let res = await CoursesApi.detail(slug);
+    if (res.data) {
+      setCourse(res.data);
+    }
+  }, [slug]);
 
   async function onRegister() {
     let errorObj = check();
@@ -66,6 +76,7 @@ function RegisterForm() {
       // console.log(form);
       //gửi giá trị lên API
       let res = CoursesApi.register(form, slug);
+      console.log(res);
     }
   }
   return (
@@ -116,11 +127,11 @@ function RegisterForm() {
         <input
           type="text"
           placeholder="https://facebook.com"
-          value={form.url}
-          name="url"
+          value={form.fb}
+          name="fb"
           onChange={inputOnChange}
         />
-        {error.url && <p className="error-text">{error.url}</p>}
+        {error.fb && <p className="error-text">{error.fb}</p>}
       </label>
 
       <label className="disable">

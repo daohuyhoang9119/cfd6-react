@@ -12,7 +12,7 @@ export default function CourseItem({
   return (
     <div className="col-md-4 course">
       <div className="wrap">
-        <Link className="cover" to={`/coursedetail/:${slug}`}>
+        <Link className="cover" to={`/coursedetail/${slug}`}>
           <img src={thumbnail.link} alt="" />
           {course_status === "da-ket-thuc" ? (
             <span className="badge b1">Đã kết thúc</span>
@@ -49,7 +49,7 @@ export default function CourseItem({
             </div>
             <div className="name">{teacher.title}</div>
           </div>
-          <Link to="/register" className="register-btn">
+          <Link to={`register/${slug}`} className="register-btn">
             Đăng Ký
           </Link>
         </div>
