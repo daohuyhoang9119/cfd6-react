@@ -1,10 +1,19 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
-import useAuth from "../Hook/useAuth";
+import { logoutAction } from "../redux/action/authAction";
 
 function Header() {
-  let { login, handleLogout } = useAuth();
+  // let { login, handleLogout } = useAuth();
+  let { login } = useSelector((store) => store.authReducer);
+  let dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(logoutAction());
+    // dispatch({
+    //   type: "LOGOUT",
+    // });
+  }
 
   function toggleMenu() {
     document.body.classList.toggle("menu-is-show");

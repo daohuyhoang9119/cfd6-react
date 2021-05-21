@@ -5,8 +5,8 @@ import { useParams, useHistory } from "react-router";
 
 function RegisterForm() {
   let { slug } = useParams();
-  let history = useHistory();
-  let [course, setCourse] = useState();
+  // let history = useHistory();
+  // let [course, setCourse] = useState();
 
   //form
   const { form, error, inputOnChange, check } = useValidate(
@@ -62,12 +62,12 @@ function RegisterForm() {
     }
   );
 
-  useEffect(async () => {
-    let res = await CoursesApi.detail(slug);
-    if (res.data) {
-      setCourse(res.data);
-    }
-  }, [slug]);
+  // useEffect(async () => {
+  //   let res = await CoursesApi.detail(slug);
+  //   if (res.data) {
+  //     setCourse(res.data);
+  //   }
+  // }, [slug]);
 
   async function onRegister() {
     let errorObj = check();

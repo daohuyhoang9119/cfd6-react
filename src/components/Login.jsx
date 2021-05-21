@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ReactDOM from "react-dom";
-import useAuth from "../Hook/useAuth";
 import useValidate from "../Hook/useValidate";
+import Auth from "../service/auth";
+import { loginAction } from "../redux/action/authAction";
 
 function Login() {
-  let [loginError, setLoginError] = useState(null);
+  let { loginError } = useSelector((store) => store.authReducer);
   const { form, error, check, inputOnChange } = useValidate(
     {
       username: "",
@@ -36,7 +38,7 @@ function Login() {
     }
   );
 
-  let { handleLogin } = useAuth();
+  let dispatch = useDispatch();
 
   function closeSignUp() {
     document.querySelector(".sign-up").style.display = "none";
@@ -48,12 +50,32 @@ function Login() {
   async function onSubmit() {
     let errObj = check();
     if (Object.keys(errObj).length === 0) {
-      let res = await handleLogin(form.username, form.password);
-      if (res.success) {
-        closeLogin();
-      } else if (res.error) {
-        setLoginError(res.error);
-      }
+      // let res = await Auth.login({
+      //   username: form.username,
+      //   password: form.password,
+      // });
+
+      dispatch(
+        loginAction(
+          {
+            username: form.username,
+            password: form.password,
+          },
+          closeLogin
+        )
+      );
+
+      // if (res.data) {
+      //   localStorage.setItem("token", JSON.stringify(res.data.token));
+      //   dispatch(loginAction(res.data));
+      //   // dispatch({
+      //   //   type: "LOGIN",
+      //   //   payload: res.data, //data truyen thong qua payload
+      //   // });
+      //   closeLogin();
+      // } else if (res.error) {
+      //   setLoginError(res.error);
+      // }
     }
   }
 
