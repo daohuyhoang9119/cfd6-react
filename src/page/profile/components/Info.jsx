@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import useValidate from "../../../Hook/useValidate";
+import { updateAction } from "../../../redux/action/authAction";
+import Auth from "../../../service/auth";
 
 function Info() {
+  let { login } = useSelector((store) => store.authReducer);
   const { form, error, check, inputOnChange } = useValidate(
     {
-      name: "",
-      phone: "",
-      urlFace: "",
-      urlSkype: "",
-      email: "",
+      name: login.name,
+      phone: login.phone,
+      fb: login.fb,
+      urlSkype: login.urlSkype,
+      email: login.email,
     },
     {
       rule: {
@@ -19,13 +23,12 @@ function Info() {
           require: true,
           pattern: "phone",
         },
-        urlFace: {
+        fb: {
           require: true,
-          pattern: "urlFace",
+          pattern: "urlFacebook",
         },
         urlSkype: {
           require: true,
-          pattern: "urlSkype",
         },
         email: {
           require: true,
@@ -40,7 +43,7 @@ function Info() {
           require: "Số điện thoại không được để trống",
           pattern: "Phải là số điện thoại VN gồm 10 hoặc 11 số",
         },
-        urlFace: {
+        fb: {
           require: "Link Facebook không được để trống",
           pattern: "Link Facebook không đúng định dạng",
         },
@@ -55,11 +58,16 @@ function Info() {
       },
     }
   );
+  let dispatch = useDispatch();
 
-  function onSave() {
+  async function onSave() {
     let errorObj = check();
+
     if (Object.keys(errorObj).length === 0) {
-      console.log(form);
+      // console.log(form);
+      // let res = await Auth.update(form);
+      dispatch(updateAction(form));
+      // console.log(res);
     }
   }
 
@@ -86,23 +94,23 @@ function Info() {
           type="text"
           placeholder="Số điện thoại"
           value={form.phone}
-          name="name"
+          name="phone"
           onChange={inputOnChange}
         />
         {error.phone && <p className="error-text">{error.phone}</p>}
       </label>
       <label>
         <p>
-          Facebook<span>*</span>
+          URL Facebook<span>*</span>
         </p>
         <input
           type="text"
-          placeholder="Facebook url"
-          value={form.name}
-          name="urlFace"
+          placeholder="https://facebook.com"
+          value={form.fb}
+          name="fb"
           onChange={inputOnChange}
         />
-        {error.urlFace && <p className="error-text">{error.urlFace}</p>}
+        {error.fb && <p className="error-text">{error.fb}</p>}
       </label>
       <label>
         <p>
@@ -127,6 +135,7 @@ function Info() {
           value={form.email}
           name="email"
           onChange={inputOnChange}
+          disabled
         />
         {error.email && <p className="error-text">{error.email}</p>}
       </label>

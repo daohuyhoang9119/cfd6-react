@@ -5,7 +5,7 @@ import { useParams, useHistory } from "react-router";
 
 function RegisterForm() {
   let { slug } = useParams();
-  // let history = useHistory();
+  let history = useHistory();
   // let [course, setCourse] = useState();
 
   //form
@@ -76,7 +76,7 @@ function RegisterForm() {
       // console.log(form);
       //gửi giá trị lên API
       let res = CoursesApi.register(form, slug);
-      console.log(res);
+      // console.log(res);
     }
   }
   return (

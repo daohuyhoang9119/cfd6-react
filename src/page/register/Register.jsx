@@ -6,6 +6,8 @@ import { useParams, useHistory } from "react-router";
 
 function Register() {
   let { slug } = useParams();
+  let history = useHistory();
+
   let [course, setCourse] = useState();
 
   useEffect(async () => {
@@ -27,7 +29,7 @@ function Register() {
           </div>
         </div>
       </section>
-      <div className="register-success">
+      {/* <div className="register-success">
         <div className="contain">
           <div className="main-title">đăng ký thành công</div>
           <p>
@@ -43,7 +45,7 @@ function Register() {
         <a href="/" className="btn main rect">
           về trang chủ
         </a>
-      </div>
+      </div> */}
     </main>
   );
 }

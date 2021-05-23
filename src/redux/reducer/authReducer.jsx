@@ -1,4 +1,4 @@
-import { ERROR, LOGIN, LOGOUT } from "../type";
+import { ERROR, LOGIN, LOGOUT, UPDATE } from "../type";
 
 let initState = {
   login: JSON.parse(localStorage.getItem("login")),
@@ -22,6 +22,11 @@ function authReducer(state = initState, action) {
     return {
       ...state,
       loginError: action.payload,
+    };
+  } else if (action.type === UPDATE) {
+    return {
+      ...state,
+      login: action.payload,
     };
   }
 
