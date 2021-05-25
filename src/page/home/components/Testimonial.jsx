@@ -1,6 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
+let $ = window.$;
 
 function Testimonial(props) {
+  useEffect(() => {
+    if ($(".section-testimonial").length) {
+      var $carousel = $(".section-testimonial .images .list").flickity({
+        contain: true,
+        wrapAround: false,
+        freeScroll: false,
+        cellAlign: "center",
+        lazyLoad: 2,
+        imagesLoaded: true,
+        prevNextButtons: false,
+        on: {
+          ready: function () {
+            let dotsSlideTes = $(".section-testimonial .flickity-page-dots");
+            let dotsNew = $(".section-testimonial .dots");
+            dotsSlideTes.appendTo(dotsNew);
+          },
+          change: function (index) {
+            $(".testimonial .ct").removeClass("active");
+            $(".testimonial .ct-" + (index + 1)).addClass("active");
+          },
+        },
+      });
+      var flkty = $carousel.data("flickity");
+      var $imgs = $(".section-testimonial .carousel-cell picture img");
+
+      $carousel.on("scroll.flickity", function (event, progress) {
+        flkty.slides.forEach(function (slide, i) {
+          var img = $imgs[i];
+          var x = ((slide.target + flkty.x) * -1) / 2;
+          img.style.transform = "translateX( " + x + "px)";
+        });
+      });
+
+      let ctrPrevTes = $(".section-testimonial .btn_ctr.prev"),
+        ctrNextTes = $(".section-testimonial .btn_ctr.next");
+
+      ctrPrevTes.on("click", function () {
+        $carousel.flickity("previous", true);
+      });
+      ctrNextTes.on("click", function () {
+        $carousel.flickity("next", true);
+      });
+    }
+  }, []);
   return (
     <>
       <section className="section-testimonial">
